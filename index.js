@@ -6,10 +6,9 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
-const generate = require("./util/generateHtml");
+const generateHtml = require("./util/generateHtml");
+const { Console } = require("console");
 const team = []
-
-
 
 console.log('Lets start building your team!')
   inquirer
@@ -63,7 +62,10 @@ function teamBuilding() {
         break;
 
       case 'All done!':
-        // new function to end questions
+        const controller = new AbortController()
+        fs.writeFile("team.html",generateHtml(team), (err) => {
+          controller.abort();
+        })  
         break;
 
       default:
